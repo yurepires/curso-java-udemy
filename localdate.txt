@@ -1,0 +1,128 @@
+Curso Java - Udemy
+Datas:
+
+- Instanciação -
+
+- LocalDate d01 = LocalDate.now();
+Retorna o dia/mês/ano local. Ex.: 2025-01-27
+
+- LocalDateTime d02 = LocalDateTime.now();
+Retorna o dia/mês/ano/horário local. Ex.: 2025-01-27T11:24:36.456747897
+
+- Instant d03 = Instant.now();
+Retorna data e hora global com horário no fuso horário gmt. Ex.: 2025-01-27T14:26:36.45634657Z -> "z" de zulu time
+
+- LocalDate d04 = LocalDate.parse("2022-07-20");
+Pega uma data String e transforma em objeto LocalDate
+
+- LocalDateTime d05 = LocalDate.parse("2022-07-20T11:36:15");
+Igual o acima mas com hora
+
+- Instant d06 = Instant.parse("2022-07-20T11:36:15Z");
+mesmo acima mas com o fuso horário de Londres(zulu-time)
+
+- Instant d07 = Instant.parse("2022-07-20T11:36:15-03:00");
+mesmo acima mas passando o fuso horário do Brasil(GMT-3). E retornará um objeto do fuso horário de Londres
+
+- DateTimeFormatter fmt1 = DateTimeFormatter.ofpattern("dd/MM/yyyy")
+  LocalDate d08 = LocalDate.parse("27/01/2025", fmt1); ou LocalDate d08 = LocalDate.parse("27/01/2025", DateTimeFormatter.ofpatter("dd/MM/yyyy"));
+Permite passar uma data personalizada
+
+-DateTimeFormatter fmt2 = DateTimeFormatter.ofpattern("dd/MM/yyyy HH:mm")
+LocalDateTime d09 = LocalDateTime.parse("20/01/2025 01:30", fmt2)
+
+- LocalDate d10 = LocalDate.of(2022, 7, 20); //ano, mês, dia
+Cria um objeto enviando os dados isolados
+
+- LocalDateTime d11 = LocalDatetime.of(2025, 1, 27, 1, 30) //ano, mês, dia, hora, minuto
+
+
+- Formatação -
+
+LocalDate d04 = LocalDate.parse("2022-07-20");
+LocalDateTime d05 = LocalDate.parse("2022-07-20T11:36:15");
+Instant d06 = Instant.parse("2022-07-20T11:36:15Z");
+
+DateTimeFormatter fmt1 = DateTimeFormatter.ofpattern("dd/MM/yyyy")
+DateTimeFormatter fmt2 = DateTimeFormatter.ofpattern("dd/MM/yyyy HH:mm")
+DateTimeFormatter fmt3 = DateTimeFormatter.ofpattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault()); //pega o fuso horário do sistema local
+
+sout("d04 = " + d04.format(fmt1)); //dia/mês/ano    ou   sout("d04 = " + fmt1.format(d04));   ou sout("d04 = " + d04.format(fmt1));
+
+
+sout("d05 = " + d04.format(fmt2));     pode também    sout("d05 = " + d04.format(fmt1));
+
+
+//Instant não possui o .format
+sout("d06 = " + fmt3.format(d06));
+
+
+
+-- Global para Local --
+
+LocalDate d04 = LocalDate.parse("2022-07-20");
+LocalDateTime d05 = LocalDate.parse("2022-07-20T11:36:15");
+Instant d06 = Instant.parse("2022-07-20T11:36:15Z");
+
+
+LocalDate r1 = LocalDate.ofInstant(d06, ZoneId.systemDefault()); //converter instant para local
+LocalDate r2 = LocalDate.ofInstant(d06, ZoneId.of("Portugal");
+
+LocalDateTime r3 = LocalDate.ofInstant(d06, ZoneId.systemDefault());
+LocalDateTime r4 = LocalDate.ofInstant(d06, ZoneId.of("Portugal");
+
+
+-- dados específicos de uma hora local --
+
+sout("d04 dia = " + d04.getDayofMonth());
+
+sout("d05 hora = " + d05.getHour());
+
+
+
+
+-- Calculos com data e hora
+//objetos data-hora são imutáveis
+
+LocalDate d04 = LocalDate.parse("2022-07-20");
+LocalDateTime d05 = LocalDate.parse("2022-07-20T11:36:15");
+Instant d06 = Instant.parse("2022-07-20T11:36:15Z");
+
+
+LocalDate pastWeekLocalDate = d04.minusDays(7); //Subtraindo 7 dias
+LocalDate nextWeekLocalDate = d04.plusYears(7); 
+
+
+LocalDateTime pastWeekLocalDateTime = d05.minusDays(7); //Subtraindo 7 dias
+LocalDateTime nextWeekLocalDateTime = d05.plusHours(7);
+
+Instant pastWeekInstant = d06.minus(7, ChronoUnit.DAYS); //instant não tem minusDays/hours/days
+Instant nextWeekInstant = d06.plus=(7, ChronoUnit.DAYS);
+
+
+ Duração
+
+Duration t1 = Duration.Between(pastWeekLocalDate.atStartOfDay(), d04.atTime(0, 0)); Duration não funciona com DateTime, tem que colocar atStartofDay ou atTime
+sout("t1 dias = " + t1.toDays()); //pode ser dias/horas/etc
+
+
+Duration t2 = Duration.Between(pastWeekLocalDateTime, d05)
+sout("t2 dias = " + t2.toDays()); //pode ser dias/horas/etc
+
+Duration t3 = Duration.Between(pastWeekInstant, d06)
+sout("t3 dias = " + t3.toDays()); //pode ser dias/horas/etc
+
+Duration t4 = Duration.Between(d06, pastWeekInstant)
+sout("t4 dias = " + t4.toDays()); //pode ser dias/horas/etc
+
+
+
+
+
+
+
+
+
+
+
+
